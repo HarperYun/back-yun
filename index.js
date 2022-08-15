@@ -12,6 +12,16 @@ const app = express()
 
 app.use(cors({
   origin (origin, callback) {
+    if (origin === undefined || origin.includes('github') | origin.includes('localhost')) {
+      callback(null, true)
+    } else {
+      callback(null, false)
+    }
+  }
+}))
+
+app.use(cors({
+  origin (origin, callback) {
     if (origin === undefined || origin.includes('github') || origin.includes('localhost')) {
       callback(null, true)
     } else {
