@@ -11,6 +11,7 @@ import {
 
 const router = express.Router()
 
+// frontend -> backend middleware(auth.jwt) -> backend(logout)
 router.post('/', content('application/json'), register)
 router.post('/login', content('application/json'), auth.login, login)
 router.delete('/logout', auth.jwt, logout)
