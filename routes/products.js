@@ -17,6 +17,6 @@ router.post('/', content('multipart/form-data'), auth.jwt, admin, upload, create
 router.get('/', getProducts) // 只顯示已上架
 router.get('/all', auth.jwt, admin, getAllProducts) // 包含未上架，只有管理員有權限看，一定要放在 '/:id' 這行前面，不然會失效
 router.get('/:id', getProduct)
-router.patch('/', content('multipart/form-data'), auth.jwt, admin, upload, editProduct) // 編輯
+router.patch('/:id', content('multipart/form-data'), auth.jwt, admin, upload, editProduct) // 編輯
 
 export default router
