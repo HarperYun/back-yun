@@ -1,4 +1,5 @@
 import users from '../models/users.js'
+import products from '../models/products.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -23,7 +24,6 @@ export const register = async (req, res) => {
     await users.create(req.body)
     res.status(200).send({ success: true, message: '' })
   } catch (error) {
-    console.log(error)
     if (error.name === 'ValidationError') {
       const key = Object.keys(error.errors)[0]
       const message = error.errors[key].message
@@ -93,6 +93,87 @@ export const getUser = (req, res) => {
         role: req.user.role
       }
     })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
+
+// 新增到購物車
+export const addCart = async (req, res) => {
+  try {
+    // 驗證商品
+    const result = await products.findById(req.body.product)
+    // 沒找到或已下架
+    if (!result || !result.sell) {
+      return res.status(404).send({ success: false, message: '商品不存在' })
+    }
+    // 找購物車有沒有這個商品
+    const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
+    if (idx > -1) {
+      req.user.cart[idx].quantity += req.body.quantity
+    } else {
+      req.user.cart.push({
+        product: req.body.product,
+        quantity: req.body.quantity
+      })
+    }
+    await req.user.save()
+    res.status(200).send({ success: true, message: '', result: req.user.cart.length })
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const key = Object.keys(error.errors)[0]
+      const message = error.errors[key].message
+      return res.status(400).send({ success: false, message })
+    } else {
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    }
+  }
+}
+
+export const editCart = async (req, res) => {
+  try {
+    if (req.body.quantity <= 0) {
+      await users.findOneAndUpdate(
+        { _id: req.user._id, 'cart.product': req.body.product },
+        {
+          $pull: {
+            cart: { product: req.body.product }
+          }
+        }
+      )
+      // const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
+      // req.user.cart.splice(idx, 1)
+      // await req.user.save()
+    } else {
+      await users.findOneAndUpdate(
+        { _id: req.user._id, 'cart.product': req.body.product },
+        {
+          $set: {
+            // $ 代表符合陣列搜尋條件的索引
+            'cart.$.quantity': req.body.quantity
+          }
+        }
+      )
+      // const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
+      // req.user.cart[idx].quantity = req.body.quantity
+      // await req.user.save()
+    }
+    res.status(200).send({ success: true, message: '' })
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const key = Object.keys(error.errors)[0]
+      const message = error.errors[key].message
+      return res.status(400).send({ success: false, message })
+    } else {
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    }
+  }
+}
+
+export const getCart = async (req, res) => {
+  try {
+    const result = await users.findById(req.user._id, 'cart').populate('cart.product')
+    res.status(200).send({ success: true, message: '', result: result.cart })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }

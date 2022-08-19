@@ -12,7 +12,7 @@ mongoose.connect(process.env.DB_URL)
 const app = express()
 
 app.use(cors({
-  origin (origin, callback) {
+  origin(origin, callback) {
     if (origin === undefined || origin.includes('github') | origin.includes('localhost')) {
       callback(null, true)
     } else {
@@ -22,7 +22,7 @@ app.use(cors({
 }))
 
 app.use(cors({
-  origin (origin, callback) {
+  origin(origin, callback) {
     if (origin === undefined || origin.includes('github') || origin.includes('localhost')) {
       callback(null, true)
     } else {
@@ -40,7 +40,7 @@ app.use((_, req, res, next) => {
 })
 
 app.use('/users', userRouter)
-app.use('/product', productRouter)
+app.use('/products', productRouter)
 
 app.all('*', (req, res) => {
   res.status(404).send({ success: false, message: '找不到' })
