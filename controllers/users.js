@@ -115,7 +115,8 @@ export const addCart = async (req, res) => {
     } else {
       req.user.cart.push({
         product: req.body.product,
-        quantity: req.body.quantity
+        quantity: req.body.quantity,
+        remark: req.body.remark
       })
     }
     await req.user.save()

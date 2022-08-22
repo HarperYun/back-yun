@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
     required: [true, '缺少信箱欄位'],
     unique: true,
     validate: {
-      validator (email) {
+      validator(email) {
         return validator.isEmail(email)
       },
       message: '信箱格式錯誤'
@@ -40,6 +40,10 @@ const schema = new mongoose.Schema({
         quantity: {
           type: Number,
           required: [true, '缺少數量欄位']
+        },
+        // 備註
+        remark: {
+          type: String
         }
       }
     ]
