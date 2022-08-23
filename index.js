@@ -12,15 +12,15 @@ mongoose.connect(process.env.DB_URL)
 
 const app = express()
 
-app.use(cors({
-  origin(origin, callback) {
-    if (origin === undefined || origin.includes('github') | origin.includes('localhost')) {
-      callback(null, true)
-    } else {
-      callback(null, false)
-    }
-  }
-}))
+// app.use(cors({
+//   origin(origin, callback) {
+//     if (origin === undefined || origin.includes('github') | origin.includes('localhost')) {
+//       callback(null, true)
+//     } else {
+//       callback(null, false)
+//     }
+//   }
+// }))
 
 app.use(cors({
   origin(origin, callback) {
@@ -31,6 +31,7 @@ app.use(cors({
     }
   }
 }))
+
 app.use((_, req, res, next) => {
   res.status(400).send({ success: false, message: '請求被拒' })
 })
