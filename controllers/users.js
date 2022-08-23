@@ -31,7 +31,7 @@ export const register = async (req, res) => {
     } else if (error.name === 'MongoServerError' && error.code === 11000) {
       res.status(400).send({ success: false, message: '帳號已存在' })
     } else {
-      res.status(500).send({ success: false, message: '伺服器錯誤' })
+      res.status(500).send({ success: false, message: '伺服器錯誤9' })
     }
   }
 }
@@ -55,7 +55,7 @@ export const login = async (req, res) => {
       }
     })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤10' })
   }
 }
 
@@ -66,7 +66,7 @@ export const logout = async (req, res) => {
     await req.user.save()
     res.status(200).send({ success: true, message: '' })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤11' })
   }
 }
 
@@ -78,7 +78,7 @@ export const extend = async (req, res) => {
     await req.user.save()
     res.status(200).send({ success: true, message: '', result: token })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤12' })
   }
 }
 
@@ -95,7 +95,7 @@ export const getUser = (req, res) => {
       }
     })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤13' })
   }
 }
 
@@ -127,7 +127,7 @@ export const addCart = async (req, res) => {
       const message = error.errors[key].message
       return res.status(400).send({ success: false, message })
     } else {
-      res.status(500).send({ success: false, message: '伺服器錯誤' })
+      res.status(500).send({ success: false, message: '伺服器錯誤14' })
     }
   }
 }
@@ -167,7 +167,7 @@ export const editCart = async (req, res) => {
       const message = error.errors[key].message
       return res.status(400).send({ success: false, message })
     } else {
-      res.status(500).send({ success: false, message: '伺服器錯誤' })
+      res.status(500).send({ success: false, message: '伺服器錯誤15' })
     }
   }
 }
@@ -177,6 +177,6 @@ export const getCart = async (req, res) => {
     const result = await users.findById(req.user._id, 'cart').populate('cart.product')
     res.status(200).send({ success: true, message: '', result: result.cart })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤16' })
   }
 }

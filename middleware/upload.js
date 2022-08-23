@@ -10,7 +10,7 @@ cloudinary.config({
 
 const upload = multer({
   storage: new CloudinaryStorage({ cloudinary }),
-  fileFilter (req, file, cb) {
+  fileFilter(req, file, cb) {
     if (!file.mimetype.startsWith('image')) {
       cb(new multer.MulterError('LIMIT_FORMAT'), false)
     } else {
@@ -34,7 +34,7 @@ export default async (req, res, next) => {
       }
       res.status(400).send({ success: false, message })
     } else if (error) {
-      res.status(500).send({ success: false, message: '伺服器錯誤' })
+      res.status(500).send({ success: false, message: '伺服器錯誤17' })
     } else {
       next()
     }

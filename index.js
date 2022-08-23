@@ -6,7 +6,7 @@ import cors from 'cors'
 import './passport/passport.js'
 import usersRouter from './routes/users.js'
 import productsRouter from './routes/products.js'
-import ordersRouter from '/routes/orders.js'
+import ordersRouter from './routes/orders.js'
 
 mongoose.connect(process.env.DB_URL)
 

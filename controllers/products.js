@@ -18,7 +18,7 @@ export const createProduct = async (req, res) => {
       const message = error.errors[key].message
       return res.status(400).send({ success: false, message })
     } else {
-      res.status(500).send({ success: false, message: '伺服器錯誤' })
+      res.status(500).send({ success: false, message: '伺服器錯誤4' })
     }
   }
 }
@@ -29,7 +29,7 @@ export const getProducts = async (req, res) => {
     const result = await products.find({ sell: true })
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤5' })
   }
 }
 
@@ -39,7 +39,7 @@ export const getAllProducts = async (req, res) => {
     const result = await products.find()
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤6' })
   }
 }
 
@@ -49,7 +49,7 @@ export const getProduct = async (req, res) => {
     const result = await products.findById(req.params.id)
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤7' })
   }
 }
 
@@ -73,7 +73,7 @@ export const editProduct = async (req, res) => {
       const message = error.errors[key].message
       return res.status(400).send({ success: false, message })
     } else {
-      res.status(500).send({ success: false, message: '伺服器錯誤' })
+      res.status(500).send({ success: false, message: '伺服器錯誤8' })
     }
   }
 }
