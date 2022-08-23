@@ -16,7 +16,7 @@ export const createOrder = async (req, res) => {
     await req.user.save()
     res.status(200).send({ success: true, message: '', result: result._id })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤' })
+    res.status(500).send({ success: false, message: '伺服器錯誤1' })
   }
 }
 
