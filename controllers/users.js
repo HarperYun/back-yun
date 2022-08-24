@@ -184,8 +184,16 @@ export const getCart = async (req, res) => {
 // 取得全部使用者資料 // 未完成
 export const getAllUsers = async (req, res) => {
   try {
-    const result = await users()
-    res.status(200).send({ success: true, message: '', result: result.cart })
+    const allUser = await users.find({ role: 0 })
+    const respUser = allUser.map((user) => {
+      return {
+        id: user.id,
+        account: user.account,
+        email: user.email
+      }
+    })
+    console.log(respUser)
+    res.status(200).send({ success: true, message: '', result: respUser })
   } catch (error) {
     res.status(500).send({ success: false, message: '無法取得會員資料' })
   }
