@@ -180,3 +180,13 @@ export const getCart = async (req, res) => {
     res.status(500).send({ success: false, message: '伺服器錯誤16' })
   }
 }
+
+// 取得全部使用者資料 // 未完成
+export const getAllUsers = async (req, res) => {
+  try {
+    const result = await users()
+    res.status(200).send({ success: true, message: '', result: result.cart })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '無法取得會員資料' })
+  }
+}

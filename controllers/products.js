@@ -77,3 +77,13 @@ export const editProduct = async (req, res) => {
     }
   }
 }
+
+// 用分類區分
+export const getCategory = async (req, res) => {
+  try {
+    const result = await products.find({ sell: true })
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤-分類區' })
+  }
+}

@@ -18,6 +18,9 @@ const schema = new mongoose.Schema({
       quantity: {
         type: Number,
         required: [true, '缺少數量欄位']
+      },
+      remark: {
+        type: String
       }
     }
   ],

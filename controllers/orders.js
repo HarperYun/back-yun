@@ -12,6 +12,7 @@ export const createOrder = async (req, res) => {
       return res.status(400).send({ success: false, message: '包含下架商品' })
     }
     result = await orders.create({ user: req.user._id, products: req.user.cart })
+    console.log(req.user.cart)
     req.user.cart = []
     await req.user.save()
     res.status(200).send({ success: true, message: '', result: result._id })
