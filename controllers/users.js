@@ -2,6 +2,7 @@ import users from '../models/users.js'
 import products from '../models/products.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import orders from '../models/orders.js'
 
 // 註冊
 // 一個一個寫 models/users.js 裡面的判定條件
@@ -181,20 +182,30 @@ export const getCart = async (req, res) => {
   }
 }
 
-// 取得全部使用者資料 // 未完成
+// 取得全部使用者資料
 export const getAllUsers = async (req, res) => {
   try {
     const allUser = await users.find({ role: 0 })
-    const respUser = allUser.map((user) => {
-      return {
-        id: user.id,
-        account: user.account,
-        email: user.email
-      }
-    })
-    console.log(respUser)
-    res.status(200).send({ success: true, message: '', result: respUser })
+    // const respUser = allUser.map((user) => {
+    //   return {
+    //     id: user.id,
+    //     account: user.account,
+    //     email: user.email
+    //   }
+    // })
+    res.status(200).send({ success: true, message: '', result: allUser })
   } catch (error) {
     res.status(500).send({ success: false, message: '無法取得會員資料' })
+  }
+}
+
+// 刪除使用者
+export const deleteUser = async (req, res) => {
+  try {
+    await users.findByIdAndDelete(req.params.id)
+    // await orders.deleteMany({ user: req.params.id })
+    res.status(200).send({ success: true, message: '' })
+  } catch (error) {
+    res.status(500).send({ success: false, message: error })
   }
 }

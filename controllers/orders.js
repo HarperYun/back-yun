@@ -40,3 +40,14 @@ export const getAllOrders = async (req, res) => {
     res.status(500).send({ success: false, message: '伺服器錯誤3' })
   }
 }
+
+// 刪除訂單
+export const deleteOrder = async (req, res) => {
+  try {
+    await users.findByIdAndDelete(req.params.id)
+    await orders.deleteMany({ user: req.params.id })
+    res.status(200).send({ success: true, message: '' })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '無法刪除訂單' })
+  }
+}
