@@ -78,12 +78,47 @@ export const editProduct = async (req, res) => {
   }
 }
 
-// 用分類區分
-export const getCategory = async (req, res) => {
+// '天然石手鍊', '蠟線編繩', '布品手作', '棉麻編織'
+// 找天然石手鍊分類的商品
+export const getStone = async (req, res) => {
+  console.log('13464')
+  console.log(req)
   try {
-    const result = await products.find({ sell: true })
+    // { category: '天然石手鍊' }
+    const result = await products.find()
+    console.log(result)
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤-分類區' })
+    res.status(500).send({ success: false, message: error })
+  }
+}
+
+// 找蠟線編繩分類的商品
+export const getWax = async (req, res) => {
+  try {
+    const result = await products.find({ category: '蠟線編繩' })
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤-蠟線編繩' })
+  }
+}
+
+// 找布品手作分類的商品
+export const getCloth = async (req, res) => {
+  try {
+    const result = await products.find({ category: '布品手作' })
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤-布品手作' })
+  }
+}
+
+// 找棉麻編織分類的商品
+export const getWeave = async (req, res) => {
+  try {
+    const result = await products.find({ category: '棉麻編織' })
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤-棉麻編織' })
   }
 }

@@ -19,7 +19,7 @@ const upload = multer({
   },
   limits: {
     // 檔案上限1mb
-    fileSize: 1024 * 1024
+    fileSize: 2048 * 2048
   }
 })
 

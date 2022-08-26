@@ -83,6 +83,7 @@ export const extend = async (req, res) => {
   }
 }
 
+// 獲取某個使用者的資料
 export const getUser = (req, res) => {
   try {
     res.status(200).send({
