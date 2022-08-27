@@ -84,20 +84,12 @@ export const extend = async (req, res) => {
 }
 
 // 獲取某個使用者的資料
-export const getUser = (req, res) => {
+export const getUser = async (req, res) => {
   try {
-    res.status(200).send({
-      success: true,
-      message: '',
-      result: {
-        account: req.user.account,
-        email: req.user.email,
-        cart: req.user.cart.length,
-        role: req.user.role
-      }
-    })
+    const result = await users.findById(req.user._id)
+    res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    res.status(500).send({ success: false, message: '伺服器錯誤13' })
+    res.status(500).send({ success: false, message: '無法獲取會員資料' })
   }
 }
 

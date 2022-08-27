@@ -26,6 +26,9 @@ const schema = new mongoose.Schema({
       message: '信箱格式錯誤'
     }
   },
+  avatar: {
+    type: String
+  },
   tokens: {
     type: [String]
   },
