@@ -12,7 +12,8 @@ import {
   editCart,
   getCart,
   getAllUsers,
-  deleteUser
+  deleteUser,
+  patchUser
 } from '../controllers/users.js'
 
 const router = express.Router()
@@ -25,6 +26,7 @@ router.post('/extend', auth.jwt, extend)
 router.get('/', auth.jwt, getUser)
 router.get('/all', auth.jwt, getAllUsers)
 router.delete('/:id', auth.jwt, admin, deleteUser)
+router.patch('/:id', auth.jwt, admin, patchUser)
 
 // 購物車路由 新增/取/修改
 router.post('/cart', content('application/json'), auth.jwt, addCart)

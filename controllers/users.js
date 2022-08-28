@@ -2,7 +2,7 @@ import users from '../models/users.js'
 import products from '../models/products.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import orders from '../models/orders.js'
+// import orders from '../models/orders.js'
 
 // 註冊
 // 一個一個寫 models/users.js 裡面的判定條件
@@ -202,3 +202,41 @@ export const deleteUser = async (req, res) => {
     res.status(500).send({ success: false, message: error })
   }
 }
+
+// 修改使用者資料
+export const patchUser = async (req, res) => {
+  try {
+    const data = {
+      phonenumber: req.body.phonenumber,
+      address: req.body.address
+    }
+    await users.findOneAndReplace(req.params.id, data)
+    res.status(200).send({ success: true, message: '' })
+  } catch (error) {
+    res.status(500).send({ success: false, message: error })
+  }
+}
+
+// export const editProduct = async (req, res) => {
+//   try {
+//     const data = {
+//       name: req.body.name,
+//       price: req.body.price,
+//       description: req.body.description,
+//       image: req.file?.path,
+//       sell: req.body.sell,
+//       category: req.body.category
+//     }
+//     if (req.file) data.image = req.file.path
+//     const result = await products.findByIdAndUpdate(req.params.id, data, { new: true })
+//     res.status(200).send({ success: true, message: '', result })
+//   } catch (error) {
+//     if (error.name === 'ValidationError') {
+//       const key = Object.keys(error.errors)[0]
+//       const message = error.errors[key].message
+//       return res.status(400).send({ success: false, message })
+//     } else {
+//       res.status(500).send({ success: false, message: '伺服器錯誤8' })
+//     }
+//   }
+// }

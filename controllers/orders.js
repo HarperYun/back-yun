@@ -21,6 +21,7 @@ export const createOrder = async (req, res) => {
   }
 }
 
+// 取得自己訂單紀錄
 export const getMyOrders = async (req, res) => {
   try {
     const result = await orders.find({ user: req.user._id }).populate('products.product')
@@ -30,6 +31,7 @@ export const getMyOrders = async (req, res) => {
   }
 }
 
+// 取得所有訂單紀錄
 export const getAllOrders = async (req, res) => {
   try {
     // .populate('user', 'account')

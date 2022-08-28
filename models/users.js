@@ -26,6 +26,14 @@ const schema = new mongoose.Schema({
       message: '信箱格式錯誤'
     }
   },
+  phonenumber: {
+    type: String,
+    required: false
+  },
+  address: {
+    type: String,
+    required: false
+  },
   avatar: {
     type: String
   },
