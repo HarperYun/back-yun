@@ -2,6 +2,7 @@ import users from '../models/users.js'
 import products from '../models/products.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import multiparty from 'multiparty'
 // import orders from '../models/orders.js'
 
 // 註冊
@@ -51,6 +52,8 @@ export const login = async (req, res) => {
         token,
         account: req.user.account,
         email: req.user.email,
+        phonenumber: req.user.phonenumber,
+        address: req.user.address,
         cart: req.user.cart.length,
         role: req.user.role
       }
@@ -206,11 +209,23 @@ export const deleteUser = async (req, res) => {
 // 修改使用者資料
 export const patchUser = async (req, res) => {
   try {
-    const data = {
-      phonenumber: req.body.phonenumber,
-      address: req.body.address
-    }
-    await users.findOneAndReplace(req.params.id, data)
+    const form = new multiparty.Form() // 能不能不用這個
+    const data = {}
+
+    form.parse(req, (err, fields, files) => {
+      data.phonenumber = fields.phonenumber
+      data.address = fields.address
+    })
+
+    // 能不能在裡面設定data 外面看的到
+
+    console.log(data)
+
+    // const data = {
+    //   phonenumber: req.body.phonenumber,
+    //   address: req.body.address
+    // }
+    // await users.findByIdAndUpdate(req.user._id, data)
     res.status(200).send({ success: true, message: '' })
   } catch (error) {
     res.status(500).send({ success: false, message: error })
