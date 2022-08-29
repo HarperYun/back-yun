@@ -5,7 +5,7 @@ const schema = new mongoose.Schema({
   user: {
     type: mongoose.ObjectId,
     ref: 'users',
-    required: [true, '缺少使用者欄位']
+    required: [true, '缺少使用者欄位-']
   },
   products: [
     {
