@@ -24,7 +24,7 @@ router.post('/login', content('application/json'), auth.login, login)
 router.delete('/logout', auth.jwt, logout)
 router.post('/extend', auth.jwt, extend)
 router.get('/', auth.jwt, getUser)
-router.patch('/', content('multipart/form-data'), auth.jwt, patchUser)
+router.patch('/', content('application/json'), auth.jwt, patchUser)
 router.get('/all', auth.jwt, getAllUsers)
 router.delete('/:id', auth.jwt, admin, deleteUser)
 
